@@ -437,7 +437,7 @@ function view(model, signal) {
       ), // </header>
       // 借助于elmish，rendermain 和 render footer返回的都是dom tree
       // 渲染在html页面
-      // 如果愿意也可以写一起haha
+      // 如果愿意也可以写一起
       render_main(model, signal),
       render_footer(model, signal),
     ]

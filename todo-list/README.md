@@ -4,15 +4,64 @@
 
 ![MVU](https://cloud.githubusercontent.com/assets/194400/25773775/b6a4b850-327b-11e7-9857-79b6972b49c3.png)
 
+什么是 M：
 Model - or "data model" is the place where all data is stored; often referred to as the application's state.
 
+什么是 U：
 Update - how the app handles actions performed by people and updates the state, **usually organised as a switch** with various case statements corresponding to the different "actions" the user can take in your App.
 
+什么是 V：
 View - what people using the app can see; a way to view the Model (in the case of the first tutorial below, the counter) as HTML rendered in a web browser.
 
-## ELM
+---
 
-核心：
+## 总结： ELM(MVU)
+
+1. signal ： signal -》update（外）
+   `signal(action, data, model){}`
+   调用方法，takes actions，输入 action，data，model，返回回调函数，内部调用外部的 update
+   `update(),传入不同的actions 和 对应action 的data ，修改model，返回新model`
+   使用：`signal("CANCEL")();`
+
+2. render ：render -》view(model,signal) （外）
+   `render(model,signal,root)`
+   渲染页面，输入 model 和 内部函数 signal， 内部调用外部的 view，
+   `view(),返回dom tree `
+
+3. mount -》》 signal + render （内）
+   `mount(model, update, view, root_element_id, subscriptions){}`
+   挂载页面,输入参数 M,V,U,root(在 index.html 里指定),sub(监听事件)
+   调用 render 后 把 render 的返回（dom tree） 挂载在 root 上
+
+借鉴：
+外部处理具体事件时经常用到，
+
+1. ? : : , 改变元素状态
+2. 稳健性 && &&
+3. 数组方法过滤数据
+4. localstorage 里，key：todos-elmish_app
+   而 model 除了在 localstorage 里存基本的 data，还存着 hash（用于 router），clicked 等属性
+
+```
+value：
+todos，object array ， 存放事项，是对象数组
+hash，存放 url 的 hash，项目里用这个 hash 来实现页面路由
+clicked：状态 ，单击双击？
+editing：状态 ，是否双击修改？
+clicked_time：状态，点击时间
+```
+
+maybetodo：
+不用 MVU，只是借鉴思路
+
+1. 重绘 css
+2. 改数组方法
+3. toggle all 的功能可以有
+4. 我觉得他的 router 没什么意义， router.hash 只用来过滤数据，但是对于 todolist 来说我更希望分栏显示全部，而不是 click 不同 a 标签显示不同东西
+
+---
+
+ELM structure 核心：
 
 ```javascript
 /**
@@ -61,6 +110,8 @@ VIEW 是具体实例的渲染函数，返回 dom tree（html）
 UPDATE 是具体实例的 controller，返回新 model
 在此基础上
 ELM 的 render(model，signal，root)，接收
+
+---
 
 ## 【hash router】 Routing 【重点学习】
 
