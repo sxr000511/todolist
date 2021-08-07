@@ -153,7 +153,7 @@
     var self = this;
     // delegate定义在helpers.js
     // delegate 会给 target 下符合 selector的所有绑定blur事件，事件处理是funciton(){}
-    $delegate(self.$todoList, "li .edit", "blur", function () {
+    $delegate(self.$todoList, "li .edit", "", function () {
       // 这儿的this 是target element ，即self.$TODOLIST，是函数内部
       //   self 绑定到view上
       if (!this.dataset.iscanceled) {
@@ -186,6 +186,7 @@
       }
     });
   };
+
   // bind 绑定 事件 ，handler事件处理函数
   View.prototype.bind = function (event, handler) {
     var self = this;
