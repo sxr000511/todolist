@@ -2,6 +2,15 @@
 
 > A port of the [Vanilla JS Example](http://todomvc.com/examples/vanillajs/), but translated into ES6, also known as ES2015.
 
+# underscore
+
+第三方开源库，对各种使用统一的函数来实现 map()、filter()【本来 only for array】这些操作。
+例如
+underscore 的 map()还可以作用于 Object：
+
+'use strict';
+\_.map({ a: 1, b: 2, c: 3 }, (v, k) => k + '=' + v); // ['a=1', 'b=2', 'c=3']
+
 # export 和 import
 
 ES6 Module
