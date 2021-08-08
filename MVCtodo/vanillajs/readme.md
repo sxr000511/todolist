@@ -17,7 +17,11 @@
 new function(){} 构造对象 ，默认返回 this
 创建的对象还从原型上获得了一个 constructor 属性，它指向函数本身
 
+<<<<<<< HEAD
 # call()、apply()<-> 对照 es6 的 bind
+=======
+# call()、apply()
+>>>>>>> 418f27449c79a9a21bf60ec5ce8b53b00acdca09
 
 _里面调用外面的_
 call()、apply() 都是用来重定义 this 这个对象的, 只是传入的参数列表形式不同。
@@ -122,7 +126,11 @@ view js 内部还有以\_开头的一堆子函数，render 和 bind 调用这堆
 # 稳健性
 
 1.  parseInt(li.dataset.id, 10); 会把 10 指定出来
+<<<<<<< HEAD
 2.             // 参1：事件string 2：处理函数 3：冒泡 or 捕获
+=======
+2.            // 参1：事件string 2：处理函数 3：冒泡 or 捕获
+>>>>>>> 418f27449c79a9a21bf60ec5ce8b53b00acdca09
     target.addEventListener(type, callback, !!useCapture);
 
 ## !! 是什么
