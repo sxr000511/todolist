@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html data-framework="vue">
+  <head>
+    <meta charset="utf-8" />
+    <title>Vue.js • TodoMVC</title>
+    <link rel="stylesheet" href="node_modules/todomvc-common/base.css" />
+    <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css" />
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- [v-cloak] -->
+    <section class="todoapp" v-cloak>
+      <header class="header">
+        <h1>todos</h1>
+        <!-- v-model -->
+        <!--  @keydown.enter="addTodo"  v-on ：语法糖@ ； enter：按键修饰符 -->
+        <input
+          class="new-todo"
+          autofocus
+          autocomplete="off"
+          placeholder="What needs to be done?"
+          v-model="newTodo"
+          @keydown.enter="addTodo"
+        />
+      </header>
+      <!-- v-show 条件渲染 -->
+      <section class="main" v-show="todos.length">
+        <!--input 和v -model，  alldone 计算属性 -->
+        <input
+          id="toggle-all"
+          class="toggle-all"
+          type="checkbox"
+          v-model="allDone"
+        />
+        <!-- label 标签 for属性90 和id 与for 相同的绑定，这里是input -->
+        <label for="toggle-all">Mark all as complete</label>
+        <!-- ul（li（div + input）） -->
+        <ul class="todo-list">
+          <!-- v-for 渲染列表/对象 -->
+          <!-- ：（v-bind），动态绑定attribute 或 props 到表达式 -->
+          <!-- 绑定class，:后面的为真绑定上class，可多选 -->
+          <!-- 动态绑定class， 表达式变化，class变化 -->
+          <!-- filteredtodos计算属性 -->
+          <li
+            class="todo"
+            v-for="todo in filteredTodos"
+            :key="todo.id"
+            :class="{completed: todo.completed, editing: todo == editedTodo}"
+          >
+            <div class="view">
+              <!-- input + v-model 动态绑定 -->
+              <input class="toggle" type="checkbox" v-model="todo.completed" />
+              <!-- v-on（@） 动态绑定事件 【DOM/自定义】-->
+              <label @dblclick="editTodo(todo)">{{todo.title}}</label>
+              <button class="destroy" @click="removeTodo(todo)"></button>
+            </div>
+            <!-- custom directives v-do-focus -->
+            <input
+              class="edit"
+              type="text"
+              v-model="todo.title"
+              v-todo-focus="todo == editedTodo"
+              @blur="doneEdit(todo)"
+              @keydown.enter="doneEdit(todo)"
+              @keydown.esc="cancelEdit(todo)"
+            />
+          </li>
+        </ul>
+      </section>
+
+      <footer class="footer" v-show="todos.length">
+        <span class="todo-count">
+          <!-- v-text = {{~~}} -->
+          <!-- methods:pluralize  remaining：computed -->
+          <!-- strong 里面最后是几个+item/items+left（(lll￢ω￢)） -->
+          <strong v-text="remaining"></strong> {{pluralize('item', remaining)}}
+          left
+        </span>
+        <ul class="filters">
+          <li>
+            <!-- visibility：data -->
+            <a href="#/all" :class="{selected: visibility == 'all'}">All</a>
+          </li>
+          <li>
+            <a href="#/active" :class="{selected: visibility == 'active'}"
+              >Active</a
+            >
+          </li>
+          <li>
+            <a href="#/completed" :class="{selected: visibility == 'completed'}"
+              >Completed</a
+            >
+          </li>
+        </ul>
+        <button
+          class="clear-completed"
+          @click="removeCompleted"
+          v-show="todos.length > remaining"
+        >
+          Clear completed
+        </button>
+      </footer>
+    </section>
+    <footer class="info">
+      <p>Double-click to edit a todo</p>
+      <p>Written by <a href="http://evanyou.me">Evan You</a></p>
+      <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+    </footer>
+    <script src="node_modules/todomvc-common/base.js"></script>
+    <script src="node_modules/director/build/director.js"></script>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/routes.js"></script>
+  </body>
+</html>
