@@ -1,9 +1,5 @@
 /////////////////////////////////////////////////
 var add = document.querySelector("#add_list");
-var todolist = document.querySelector("#todolist");
-var donelist = document.querySelector("#donelist");
-var todocount = document.querySelector("#todocount");
-var donecount = document.querySelector("#donecount");
 var clearbutton = document.querySelector("#clearbutton");
 /////////////////////////////////////////////////
 // 【大坑】如果要获得的时content里的li，
@@ -14,7 +10,7 @@ var clearbutton = document.querySelector("#clearbutton");
 var itemlist = document.querySelectorAll(".content ol");
 /////////////////////////////////////////////////
 // 1. 初始化加载数据从localstorage到页面中
-loaddata();
+renderview();
 
 // console.log(itemlist);
 
@@ -34,7 +30,7 @@ add.addEventListener("keyup", function (event) {
     // localstorage存储字符串形式，先把数组转化成json字符串
     savedata(local);
     // 渲染数据
-    loaddata();
+    renderview();
     // 清空输入框
     this.value = "";
   } else if (event.keyCode == "13" && this.value === "") {
@@ -78,7 +74,7 @@ itemlist.forEach(function (item) {
     change.focus();
     change.addEventListener("focusout", function (event) {
       if (this.value === kvalue) {
-        loaddata();
+        renderview();
       } else {
         var id = event.target.parentNode.querySelector("a").getAttribute("id");
         var todotitle = this.value.trim();
@@ -91,5 +87,5 @@ itemlist.forEach(function (item) {
 // 6.清空localstorage函数
 clearbutton.addEventListener("click", function () {
   localStorage.clear();
-  loaddata();
+  renderview();
 });

@@ -1,6 +1,8 @@
-function loaddata() {
+function renderview() {
   var todolist = document.querySelector("#todolist");
   var donelist = document.querySelector("#donelist");
+  var todocount = document.querySelector("#todocount");
+  var donecount = document.querySelector("#donecount");
   // 渲染前先清空ol
   var todo = 0;
   var done = 0;

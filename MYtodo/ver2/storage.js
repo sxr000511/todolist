@@ -43,7 +43,7 @@ function savedata(data) {
 function deletedata(data, id) {
   data.splice(id, 1);
   savedata(data);
-  loaddata();
+  renderview();
 }
 function changedata(event, data, id, input) {
   var todotitle = data[id].title;
@@ -58,5 +58,5 @@ function changedata(event, data, id, input) {
     data.push({ title: input, done: tododone, time: todotime });
   }
   savedata(data);
-  loaddata();
+  renderview();
 }
