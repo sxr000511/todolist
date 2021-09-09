@@ -35,8 +35,9 @@
 import axios from "axios"; //导入axios模块
 
 const http = axios.create({
-  baseURL: "http://localhost:3000/"
+  baseURL: process.env.API_ROOT || ""
 });
+// baseURL: "http://localhost:3000/"
 
 // 1.左侧获得
 export async function getTodoList(params) {
@@ -84,8 +85,14 @@ export async function editTodo(params) {
   const res = await http.post(`/todo/editTodo`, params);
   return res.data;
 }
+
 export async function editRecord(params) {
   // return http.post(`/todo/editRecord`, params).then(res => res.data);
   const res = await http.post(`/todo/editRecord`, params);
   return res.data;
+}
+
+export async function logIn(params) {
+  const res = await http.post(`/todo/logIn`, params);
+  return res;
 }

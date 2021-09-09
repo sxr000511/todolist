@@ -2,6 +2,7 @@ module.exports = (app) => {
   const router = require("express").Router();
   const mongoose = require("mongoose");
   const Todo = require("../../models/todo");
+  const User = require("../../models/user");
 
   router.get("/list", async (req, res) => {
     //  config 指 前台传过来的值
@@ -45,7 +46,8 @@ module.exports = (app) => {
     // id 是传进来的值
     // todo 是根据id和现有的Todos数据匹配，找出id相等的数据，在进行返回
     // console.log(id);
-    let todo = await Todo.findOne({ _id: _id });
+    // let todo = await Todo.findOne({ _id: _id });
+    let todo = await Todo.findById(_id);
     // todo.count (等待完成数目)等于 todo.record（代办事项列表下面未被选择的数据
     // 注意，否则报错
     todo
@@ -111,22 +113,19 @@ module.exports = (app) => {
     });
   });
 
-  //     mock.onPost("/todo/editRecord").reply(config => {
-  //       let { id, record, index } = JSON.parse(config.data);
-  //       Todos.some(t => {
-  //         if (t.id === id) {
-  //           t.record[index] = record;
-  //           return true;
-  //         }
-  //       });
-  //       return new Promise((resolve, reject) => {
-  //         setTimeout(() => {
-  //           resolve([200]);
-  //         }, 200);
-  //       });
-  //     });
-  //   }
-  // };
+  router.post("/logIn", async (req, res) => {
+    let { user, password } = req.body;
+    let get = await User.findOne({ user: user });
+    const isValid =
+      get === {}
+        ? false
+        : require("bcrypt").compareSync(password, get.password);
+    if (isValid) {
+      return res.send({ success: true });
+    } else {
+      return res.send({ success: false });
+    }
+  });
 
   app.use("/todo", router);
 };
